@@ -38,9 +38,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Floater Variables")
 	bool bInitializeFloaterLocations;
 
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Floater variables")
+	FVector InitialForce;
 
-
-
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Floater variables")
+	FVector InitialTorque;
 
 
 protected:
