@@ -3,21 +3,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "MainCharacter.generated.h"
+#include "GameFramework/Pawn.h"
+#include "Critter.generated.h"
 
 UCLASS()
-class FIRSTPROJECT_API AMainCharacter : public ACharacter
+class FIRSTPROJECT_API ACritter : public APawn
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	AMainCharacter();
+	// Sets default values for this pawn's properties
+	ACritter();
+
+
+
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+
+
 
 public:	
 	// Called every frame
@@ -25,5 +31,15 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* MeshComponent;
+
+	UPROPERTY(EditAnywhere)
+	class UCameraComponent* Camera;
+
+
+
+
 
 };
