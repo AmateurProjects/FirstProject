@@ -32,11 +32,27 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Mesh")
 	class USphereComponent* SphereComponent;
 
-	FORCEINLINE UStaticMeshComponent* GetMeshComponent() { return MeshComponent; } // getter for Mesh
-	FORCEINLINE void SetMeshComponent(UStaticMeshComponent* Mesh) { MeshComponent = Mesh; } // setter Mesh
-	FORCEINLINE USphereComponent* GetSphereComponent() { return SphereComponent; } // getter for Collision Sphere
-	FORCEINLINE void SetSphereComponent(USphereComponent* Sphere) { SphereComponent = Sphere; } // setter Collision Sphere
-	
+	UPROPERTY(VisibleAnywhere, Category = "Mesh")
+	class UCameraComponent* Camera;
 
+	UPROPERTY(VisibleAnywhere, Category = "Mesh")
+	class USpringArmComponent* SpringArm;
+
+	FORCEINLINE UStaticMeshComponent* GetMeshComponent() { return MeshComponent; } // getter for MeshComponent
+	FORCEINLINE void SetMeshComponent(UStaticMeshComponent* Mesh) { MeshComponent = Mesh; } // setter MeshComponent
+	
+	FORCEINLINE USphereComponent* GetSphereComponent() { return SphereComponent; } // getter for Collision SphereComponent
+	FORCEINLINE void SetSphereComponent(USphereComponent* Sphere) { SphereComponent = Sphere; } // setter for Collision SphereComponent
+
+	FORCEINLINE UCameraComponent* GetCameraComponent() { return Camera; } // getter for Camera
+	FORCEINLINE void SetCameraComponent(UCameraComponent* InCamera) { Camera = InCamera; } // setter for Camera
+	
+	FORCEINLINE USpringArmComponent* GetSpringArmComponent() { return SpringArm; } // getter for SpingArm
+	FORCEINLINE void SetSpringArmComponent(USpringArmComponent* InSpringArm) { SpringArm = InSpringArm; } // setter for SpringArm
+	
+private:
+	
+	void MoveForward(float input);
+	void MoveRight(float input);
 
 };
