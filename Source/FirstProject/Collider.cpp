@@ -8,6 +8,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "ColliderMovementComponent.h"
 
 // Sets default values
 ACollider::ACollider()
@@ -15,9 +16,9 @@ ACollider::ACollider()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-	
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
+	SetRootComponent(SphereComponent);
+
 	SphereComponent->SetupAttachment(GetRootComponent());
 	SphereComponent->InitSphereRadius(40.f);
 	SphereComponent->SetCollisionProfileName(TEXT("Pawn"));
@@ -32,8 +33,6 @@ ACollider::ACollider()
 		MeshComponent->SetRelativeLocation(FVector(0.f, 0.f, -40.f));
 		MeshComponent->SetWorldScale3D(FVector(0.8f, 0.8f, 0.8f));
 
-
-
 	}
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
@@ -45,6 +44,11 @@ ACollider::ACollider()
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
+
+	OurMovementComponent = CreateDefaultSubobject<UColliderMovementComponent>(TEXT("OurMovementComponent"));
+	OurMovementComponent->UpdatedComponent = RootComponent; 
+
+	//CameraInput = FVector2D(O.f, 0.f);
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
@@ -77,15 +81,39 @@ void ACollider::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ACollider::MoveForward(float input)
 {
 	FVector Forward = GetActorForwardVector();
-	AddMovementInput(input * Forward);
-
+	
+	if (OurMovementComponent)
+	{
+		OurMovementComponent->AddInputVector(Forward * input);
+	}
 
 }
 void ACollider::MoveRight(float input)
 {
 	FVector Right = GetActorRightVector();
-	AddMovementInput(input * Right);
-
+	
+	if (OurMovementComponent)
+	{
+		OurMovementComponent->AddInputVector(Right * input);
+	}
 
 }
 
+/*
+
+void ACollider::YawCamera(float AxisValue)
+{
+	CameraInput.X = AxisValue;
+}
+
+void ACollider::PitchCamera(float AxisValue)
+{
+	CameraInput.Y = AxisValue;
+}
+
+*/
+
+UPawnMovementComponent* ACollider::GetMovementComponent() const
+{
+	return OurMovementComponent;
+}
