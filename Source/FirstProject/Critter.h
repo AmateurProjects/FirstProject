@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Critter.generated.h"
+#include "Critter.generated.h" // always keep the generated.h as the last #include
 
 UCLASS()
 class FIRSTPROJECT_API ACritter : public APawn
@@ -33,7 +33,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Mesh")
-	class UStaticMeshComponent* MeshComponent;
+	class USkeletalMeshComponent* MeshComponent;
 
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent* Camera;
