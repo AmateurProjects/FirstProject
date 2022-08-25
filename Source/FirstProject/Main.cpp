@@ -295,12 +295,17 @@ void AMain::ShiftKeyUp()
 
 void AMain::ShowPickupLocations()
 {
+	/** There are two ways to loop through the container. This way will let you control the number of objects the loop applies to
 	for (int32 i = 0; i < PickupLocations.Num(); i++)
 	{
 		UKismetSystemLibrary::DrawDebugSphere(this, PickupLocations[i], 25.f, 8, FLinearColor::Green, 10.f, 0.5f);
 	}
+	*/
 
-
+	for (auto Location : PickupLocations) // instead of keyword auto, something like FVector can be used
+	{
+		UKismetSystemLibrary::DrawDebugSphere(this, Location, 25.f, 8, FLinearColor::Green, 10.f, 0.5f);
+	}
 	
 
 }
