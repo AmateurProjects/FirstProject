@@ -160,6 +160,8 @@ public:
 	class AItem* ActiveOverlappingItem;
 
 	// setters
-	FORCEINLINE void SetEquippedWeapon(AWeapon* WeaponToSet) { EquippedWeapon = WeaponToSet; }
+	void SetEquippedWeapon(AWeapon* WeaponToSet);
+	FORCEINLINE AWeapon* GetEquippedWeapon() { return EquippedWeapon; }
 	FORCEINLINE void SetActiveOverlappingItem(AItem* Item) { ActiveOverlappingItem = Item; }
+
 };
