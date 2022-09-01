@@ -28,7 +28,11 @@ void AEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	AIController = Cast<AAIController>(GetController());
-	
+
+	AgroSphere->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::AgroSphereOnOverlapBegin);
+	AgroSphere->OnComponentEndOverlap.AddDynamic(this, &AEnemy::AgroSphereOnOverlapEnd);
+	CombatSphere->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::CombatSphereOnOverlapBegin);
+	CombatSphere->OnComponentEndOverlap.AddDynamic(this, &AEnemy::CombatSphereOnOverlapEnd);
 }
 
 // Called every frame
@@ -83,8 +87,13 @@ void AEnemy::MoveToTarget(AMain* Target)
 
 	if (AIController)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("MoveToTarget()"));
+		FAIMoveRequest MoveRequest;
+		MoveRequest.SetGoalActor(Target);
+		MoveRequest.SetAcceptanceRadius(5.0f);
 
+		FNavPathSharedPtr NavPath;
+		
+		AIController->MoveTo(MoveRequest, &NavPath);
 	}
 
 }
