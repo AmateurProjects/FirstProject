@@ -145,7 +145,7 @@ void AEnemy::MoveToTarget(AMain* Target)
 
 			UKismetSystemLibrary::DrawDebugSphere(this, Location, 25.f, 8, FLinearColor::Red, 10.f, 1.5f);
 		}
-
+		
 		*/
 
 
