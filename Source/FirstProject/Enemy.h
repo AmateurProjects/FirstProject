@@ -38,6 +38,16 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
 	class AAIController* AIController; //AAIController is an Actor so the A precedes it
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	float Health;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	float MaxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	float Damage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
+	class UParticleSystem* HitParticles;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -22,6 +22,11 @@ AEnemy::AEnemy()
 	CombatSphere->InitSphereRadius(75.f);
 
 	bOverlappingCombatSphere = false;
+
+	Health = 75.f;
+	MaxHealth = 100.f;
+	Damage = 10.f;
+
 }
 
 // Called when the game starts or when spawned
@@ -145,7 +150,7 @@ void AEnemy::MoveToTarget(AMain* Target)
 
 			UKismetSystemLibrary::DrawDebugSphere(this, Location, 25.f, 8, FLinearColor::Red, 10.f, 1.5f);
 		}
-		
+
 		*/
 
 
