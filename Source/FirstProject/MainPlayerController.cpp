@@ -16,4 +16,30 @@ void AMainPlayerController::BeginPlay()
 	HUDOverlay->AddToViewport();
 	HUDOverlay->SetVisibility(ESlateVisibility::Visible);
 
+	if (WEnemyHealthBar)
+	{
+		EnemyHealthBar = CreateWidget<UUserWidget>(this, WEnemyHealthBar);
+		if (EnemyHealthBar)
+		{
+			EnemyHealthBar->AddToViewport();
+			EnemyHealthBar->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
+
+}
+
+void AMainPlayerController::DisplayEnemyHealthBar()
+{
+	if (EnemyHealthBar)
+	{
+		bEnemyHealthBarVisible = true;
+		EnemyHealthBar->SetVisibility(ESlateVisibility::Visible);
+	}
+
+}
+
+void AMainPlayerController::RemoveEnemyHealthBar()
+{
+	bEnemyHealthBarVisible = false;
+	EnemyHealthBar->SetVisibility(ESlateVisibility::Hidden);
 }

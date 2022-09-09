@@ -16,6 +16,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Enemy.h"
 #include "GameFramework/Pawn.h"
+#include "MainPlayerController.h"
 
 // Sets default values
 AMain::AMain()
@@ -77,6 +78,7 @@ AMain::AMain()
 	InterpSpeed = 15.f;
 	bInterpToEnemy = false;
 
+	bHasCombatTarget = false;
 }
 
 // Called when the game starts or when spawned
@@ -84,6 +86,7 @@ void AMain::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	MainPlayerController = Cast<AMainPlayerController>(GetController());
 }
 
 // Called every frame

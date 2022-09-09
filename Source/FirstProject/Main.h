@@ -37,6 +37,12 @@ public:
 	// Sets default values for this character's properties
 	AMain();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
+	bool bHasCombatTarget;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Controller")
+	class AMainPlayerController* MainPlayerController;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Combat")
 	class UParticleSystem* HitParticles;
 
