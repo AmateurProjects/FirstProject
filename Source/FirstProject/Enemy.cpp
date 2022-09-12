@@ -106,6 +106,11 @@ void AEnemy::AgroSphereOnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AA
 		{
 			if (Main)
 			{
+				if (Main->CombatTarget == this)
+				{
+					Main->SetCombatTarget(nullptr);
+				}
+				Main->SetHasCombatTarget(false);
 				if (Main->MainPlayerController)
 				{
 					Main->MainPlayerController->RemoveEnemyHealthBar();
@@ -130,6 +135,7 @@ void AEnemy::CombatSphereOnOverlapBegin(UPrimitiveComponent* OverlappedComponent
 			if (Main)
 			{
 				Main->SetCombatTarget(this);
+				Main->SetHasCombatTarget(true);
 				if (Main->MainPlayerController)
 				{
 					Main->MainPlayerController->DisplayEnemyHealthBar();
@@ -152,10 +158,6 @@ void AEnemy::CombatSphereOnOverlapEnd(UPrimitiveComponent* OverlappedComponent, 
 		{
 			if (Main)
 			{
-				if (Main->CombatTarget == this)
-				{
-					Main->SetCombatTarget(nullptr);
-				}
 				bOverlappingCombatSphere = false;
 				if (EnemyMovementStatus != EEnemyMovementStatus::EMS_Attacking)
 				{

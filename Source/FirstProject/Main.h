@@ -12,6 +12,7 @@ enum class EMovementStatus : uint8
 {
 	EMS_Normal UMETA(DisplayName = "Normal"), // it is convention to preceed enum states with an acronym, hence "EMS_" for "Enum Movement Status
 	EMS_Sprinting UMETA(DisplayName = "Sprinting"),
+	EMS_Dead UMETA(DisplayName = "Dead"),
 	
 	EMS_MAX UMETA(DisplayName = "DefaultMAX") // this is a default state not meant to be used
 };
@@ -39,6 +40,11 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
 	bool bHasCombatTarget;
+
+	FORCEINLINE void SetHasCombatTarget(bool HasTarget) { bHasCombatTarget = HasTarget; }
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Combat")
+	FVector CombatTargetLocation;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Controller")
 	class AMainPlayerController* MainPlayerController;
@@ -139,6 +145,7 @@ public:
 
 	void Die();
 
+	virtual void Jump() override;
 
 
 protected:
@@ -203,6 +210,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void PlaySwingSound();
 
+	UFUNCTION(BlueprintCallable)
+	void DeathEnd();
 
 
 };
