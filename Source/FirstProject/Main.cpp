@@ -18,6 +18,7 @@
 #include "GameFramework/Pawn.h"
 #include "MainPlayerController.h"
 #include "FirstSaveGame.h"
+#include "ItemStorage.h"
 
 // Sets default values
 AMain::AMain()
@@ -605,6 +606,11 @@ void AMain::SaveGame()
 	SaveGameInstance->CharacterStats.MaxStamina = MaxStamina;
 	SaveGameInstance->CharacterStats.Coins = Coins;
 
+	if (EquippedWeapon)
+	{
+		SaveGameInstance->CharacterStats.WeaponName = EquippedWeapon->Name;
+	}
+
 	SaveGameInstance->CharacterStats.Location = GetActorLocation();
 	SaveGameInstance->CharacterStats.Rotation = GetActorRotation();
 
@@ -622,6 +628,24 @@ void AMain::LoadGame(bool SetPosition)
 	Stamina = LoadGameInstance->CharacterStats.Stamina;
 	MaxStamina = LoadGameInstance->CharacterStats.MaxStamina;
 	Coins = LoadGameInstance->CharacterStats.Coins;
+
+	//spawn itemstorage as actor and equip it to main character
+	if (WeaponStorage)
+	{
+		AItemStorage* Weapons = GetWorld()->SpawnActor<AItemStorage>(WeaponStorage);
+		if (Weapons)
+		{
+			FString WeaponName = LoadGameInstance->CharacterStats.WeaponName;
+
+			if (Weapons->WeaponMap.Contains(WeaponName))
+			{
+				AWeapon* WeaponToEquip = GetWorld()->SpawnActor<AWeapon>(Weapons->WeaponMap[WeaponName]);
+				WeaponToEquip->Equip(this);
+			}
+		}
+	}
+	
+
 
 	if (SetPosition)
 	{
