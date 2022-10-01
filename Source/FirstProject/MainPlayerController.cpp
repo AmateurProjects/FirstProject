@@ -28,6 +28,17 @@ void AMainPlayerController::BeginPlay()
 		EnemyHealthBar->SetAlignmentInViewport(Alignment);
 	}
 
+	if (WPauseMenu)
+	{
+		PauseMenu = CreateWidget<UUserWidget>(this, WPauseMenu);
+		if (PauseMenu)
+		{
+			PauseMenu->AddToViewport();
+			PauseMenu->SetVisibility(ESlateVisibility::Hidden);
+		}
+		
+	}
+
 }
 
 void AMainPlayerController::DisplayEnemyHealthBar()
@@ -62,4 +73,33 @@ void AMainPlayerController::Tick(float DeltaTime)
 		EnemyHealthBar->SetDesiredSizeInViewport(SizeInViewport);
 	}
 
+}
+
+void AMainPlayerController::DisplayPauseMenu()
+{
+	if (PauseMenu)
+	{
+		bPauseMenuVisible = true;
+		PauseMenu->SetVisibility(ESlateVisibility::Visible);
+	}
+
+
+}
+
+void AMainPlayerController::RemovePauseMenu() 
+{
+	bPauseMenuVisible = false;
+	PauseMenu->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void AMainPlayerController::TogglePauseMenu()
+{
+	if (bPauseMenuVisible)
+	{
+		RemovePauseMenu();
+	}
+	else
+	{
+		DisplayPauseMenu();
+	}
 }

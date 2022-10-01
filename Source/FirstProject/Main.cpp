@@ -69,6 +69,7 @@ AMain::AMain()
 
 	bShiftKeyDown = false;
 	bLMBDown = false;
+	bESCDown = false;
 
 	//Initialize Enums
 	MovementStatus = EMovementStatus::EMS_Normal;
@@ -240,6 +241,9 @@ void AMain::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AMain::ShiftKeyDown);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AMain::ShiftKeyUp);
 
+	PlayerInputComponent->BindAction("ESC", IE_Pressed, this, &AMain::ESCDown);
+	PlayerInputComponent->BindAction("ESC", IE_Released, this, &AMain::ESCUp);
+
 	PlayerInputComponent->BindAction("LMB", IE_Pressed, this, &AMain::LMBDown);
 	PlayerInputComponent->BindAction("LMB", IE_Released, this, &AMain::LMBUp);
 
@@ -251,7 +255,6 @@ void AMain::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis("TurnRate", this, &AMain::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AMain::LookUpAtRate);
-
 }
 
 
@@ -331,6 +334,22 @@ void AMain::LMBDown()
 
 
 }
+
+void AMain::ESCDown()
+{
+	bESCDown = true;
+}
+
+void AMain::ESCUp()
+{
+	bESCDown = false;
+
+	if (MainPlayerController)
+	{
+		MainPlayerController->TogglePauseMenu();
+	}
+}
+
 void AMain::LMBUp()
 {
 	bLMBDown = false;
