@@ -35,6 +35,8 @@ struct FCharacterStats //convention in UE is to prefix structs with F
 	UPROPERTY(VisibleAnywhere, Category = "SaveGameData")
 	FString WeaponName;
 
+	UPROPERTY(VisibleAnywhere, Category = "SaveGameData")
+	FString LevelName;
 
 };
 

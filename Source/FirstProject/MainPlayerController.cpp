@@ -94,9 +94,10 @@ void AMainPlayerController::RemovePauseMenu_Implementation()
 {
 	if (PauseMenu)
 	{
-		FInputModeGameOnly InputModeGameOnly;
+		//FInputModeGameOnly InputModeGameOnly;
+		GameModeOnly();
 
-		SetInputMode(InputModeGameOnly);
+		//SetInputMode(InputModeGameOnly);
 		bShowMouseCursor = false;
 
 		bPauseMenuVisible = false;
@@ -113,4 +114,12 @@ void AMainPlayerController::TogglePauseMenu()
 	{
 		DisplayPauseMenu();
 	}
+}
+
+void AMainPlayerController::GameModeOnly()
+{
+	FInputModeGameOnly InputModeGameOnly;
+
+	SetInputMode(InputModeGameOnly);
+
 }
